@@ -1,0 +1,256 @@
+openapi: 3.1.0
+info:
+  title: Cortex Agent Proxy API (Outline)
+  version: 0.1.0
+  description: |
+    Specification scaffold for proxy endpoints consumed by React/Vue clients.
+    All servers and security schemes use placeholders until secrets are provisioned.
+servers:
+  - url: https://{env}-proxy.example.com
+    description: Placeholder server per environment (dev|stg|prod)
+    variables:
+      env:
+        default: dev
+        enum:
+          - dev
+          - stg
+          - prod
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Message:
+      type: object
+      required: [id, role, content, timestamp]
+      properties:
+        id:
+          type: string
+          format: uuid
+        role:
+          type: string
+          enum: [system, user, assistant, tool]
+        content:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        toolCalls:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolCall'
+    ToolCall:
+      type: object
+      required: [id, name, status]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          enum: [cortex_search, cortex_analyst_text_to_sql, sql_exec, data_to_chart]
+        arguments:
+          type: object
+          additionalProperties: true
+        status:
+          type: string
+          enum: [requested, in_progress, completed, failed]
+    ErrorResponse:
+      type: object
+      required: [error, code, traceId]
+      properties:
+        error:
+          type: string
+        code:
+          type: string
+        traceId:
+          type: string
+          format: uuid
+        details:
+          type: object
+          additionalProperties: true
+paths:
+  /api/v1/session/token:
+    post:
+      summary: Issue short-lived client JWT
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [clientId, nonce]
+              properties:
+                clientId:
+                  type: string
+                nonce:
+                  type: string
+                  format: uuid
+      responses:
+        '200':
+          description: Token issued
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [token, expiresInSec]
+                properties:
+                  token:
+                    type: string
+                  expiresInSec:
+                    type: integer
+        '400':
+          description: Invalid client request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/chat:
+    post:
+      summary: Stream chat completion via SSE
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [sessionId, messages]
+              properties:
+                sessionId:
+                  type: string
+                  format: uuid
+                messages:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Message'
+                tools:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ToolCall'
+                meta:
+                  type: object
+                  properties:
+                    traceId:
+                      type: string
+                      format: uuid
+      responses:
+        '200':
+          description: SSE stream
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                description: Placeholder; documented in schema-map.md
+        '4XX':
+          description: Client error (validation, auth, throttling)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '5XX':
+          description: Proxy or upstream failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/tools/{toolName}:
+    post:
+      summary: Execute approved Cortex tool
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: toolName
+          required: true
+          schema:
+            type: string
+            enum: [cortex_search, cortex_analyst_text_to_sql, sql_exec, data_to_chart]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/ToolRequestSearch'
+                - $ref: '#/components/schemas/ToolRequestAnalyst'
+                - $ref: '#/components/schemas/ToolRequestSqlExec'
+                - $ref: '#/components/schemas/ToolRequestDataToChart'
+      responses:
+        '200':
+          description: Tool response payload
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ToolResponseSearch'
+                  - $ref: '#/components/schemas/ToolResponseAnalyst'
+                  - $ref: '#/components/schemas/ToolResponseSqlExec'
+                  - $ref: '#/components/schemas/ToolResponseDataToChart'
+        '403':
+          description: Tool disabled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '424':
+          description: Upstream dependency failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/history/{sessionId}:
+    get:
+      summary: Retrieve chat history
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: sessionId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 20
+        - in: query
+          name: cursor
+          schema:
+            type: string
+      responses:
+        '200':
+          description: History page
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [messages, nextCursor]
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Message'
+                  nextCursor:
+                    type: string
+                    nullable: true
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+# Additional schemas (ToolRequest*, ToolResponse*) declared in schema-map.md outline.
