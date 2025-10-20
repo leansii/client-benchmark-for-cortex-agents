@@ -1,0 +1,23 @@
+{
+  "name": "client-benchmark-for-cortex-agents",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@8.15.1",
+  "engines": {
+    "node": ">=18.18.0",
+    "pnpm": ">=8.15.0"
+  },
+  "workspaces": [
+    "apps/react-app",
+    "apps/vue-app",
+    "packages/shared",
+    "packages/bench"
+  ],
+  "scripts": {
+    "prepare": "pnpm --version > /dev/null",
+    "lint": "echo \"TODO: configure lint\"",
+    "typecheck": "echo \"TODO: configure typecheck\"",
+    "build": "echo \"TODO: orchestrate package builds\"",
+    "test": "echo \"TODO: configure tests\""
+  }
+}
