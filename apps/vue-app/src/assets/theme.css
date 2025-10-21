@@ -1,0 +1,113 @@
+:root {
+  color-scheme: dark;
+  --color-background: #282a36;
+  --color-surface: #1f2130;
+  --color-surface-alt: #303347;
+  --color-border: #44475a;
+  --color-text: #f8f8f2;
+  --color-muted: #6272a4;
+  --color-accent: #bd93f9;
+  --color-accent-strong: #ff79c6;
+  --color-success: #50fa7b;
+  --color-warning: #ffb86c;
+  --color-danger: #ff5555;
+  --shadow-elevated: 0 24px 48px rgba(0, 0, 0, 0.35);
+  --radius-md: 16px;
+  --radius-sm: 10px;
+  --font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+.app-shell {
+  width: min(1400px, 100%);
+  min-height: calc(100vh - 48px);
+  background: linear-gradient(145deg, rgba(68, 71, 90, 0.3), rgba(40, 42, 54, 0.85));
+  border: 1px solid rgba(98, 114, 164, 0.15);
+  box-shadow: var(--shadow-elevated);
+  border-radius: 24px;
+  padding: clamp(20px, 4vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 3vw, 32px);
+  backdrop-filter: blur(12px);
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  color: var(--color-accent);
+  letter-spacing: 0.03em;
+}
+
+header p {
+  margin: 0;
+  color: var(--color-muted);
+  max-width: 60ch;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 28px);
+  flex: 1;
+}
+
+button {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-strong));
+  color: var(--color-text);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 12px 24px rgba(189, 147, 249, 0.25);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 28px rgba(255, 121, 198, 0.32);
+}
+
+button.secondary {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  box-shadow: none;
+}
+
+button.secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 16px;
+  }
+
+  .app-shell {
+    padding: clamp(16px, 4vw, 28px);
+  }
+}

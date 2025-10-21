@@ -1,0 +1,24 @@
+.composer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.textarea {
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(68, 71, 90, 0.6);
+  background: rgba(48, 51, 71, 0.6);
+  color: var(--color-text);
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid rgba(68, 71, 90, 0.6);
+  padding-top: 16px;
+}
+
+.placeholder {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: rgba(48, 51, 71, 0.5);
+  border: 1px dashed rgba(68, 71, 90, 0.6);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}

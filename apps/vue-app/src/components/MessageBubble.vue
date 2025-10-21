@@ -1,0 +1,86 @@
+<template>
+  <article :class="['message', `message--${variant}`]">
+    <header>
+      <span class="message__author">{{ author }}</span>
+      <span v-if="timestamp" class="message__timestamp">{{ timestamp }}</span>
+    </header>
+    <div class="message__body">
+      <slot />
+    </div>
+  </article>
+</template>
+
+<script setup lang="ts">
+import type { MessageVariant } from './types';
+
+interface Props {
+  variant: MessageVariant;
+  author: string;
+  timestamp?: string;
+}
+
+defineProps<Props>();
+</script>
+
+<style scoped>
+.message {
+  padding: 16px 20px;
+  border-radius: 18px;
+  max-width: min(680px, 90%);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(31, 33, 48, 0.85);
+  border: 1px solid rgba(68, 71, 90, 0.5);
+}
+
+.message--system {
+  align-self: center;
+  background: rgba(98, 114, 164, 0.2);
+  border: 1px dashed rgba(98, 114, 164, 0.5);
+}
+
+.message--user {
+  align-self: flex-end;
+  background: rgba(189, 147, 249, 0.25);
+  border: 1px solid rgba(189, 147, 249, 0.4);
+}
+
+.message--assistant {
+  align-self: flex-start;
+  background: rgba(31, 33, 48, 0.85);
+  border: 1px solid rgba(189, 147, 249, 0.25);
+}
+
+.message--tool {
+  align-self: stretch;
+  background: rgba(80, 250, 123, 0.08);
+  border: 1px solid rgba(80, 250, 123, 0.25);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.message__author {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-muted);
+}
+
+.message__timestamp {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  margin-left: auto;
+}
+
+.message__body {
+  color: var(--color-text);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+</style>

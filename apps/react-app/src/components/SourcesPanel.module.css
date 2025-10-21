@@ -1,0 +1,45 @@
+.panel {
+  border-radius: var(--radius-md);
+  background: rgba(48, 51, 71, 0.5);
+  border: 1px solid rgba(68, 71, 90, 0.6);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.panel h3 {
+  margin: 0;
+  color: var(--color-accent);
+}
+
+.empty {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.link {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.snippet {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}

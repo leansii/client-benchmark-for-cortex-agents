@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "types": ["vite/client", "@vue/runtime-dom"]
+  },
+  "include": ["src", "vite.config.ts", "env.d.ts"],
+  "references": [
+    { "path": "./tsconfig.app.json" }
+  ]
+}

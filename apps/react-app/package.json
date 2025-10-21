@@ -1,0 +1,38 @@
+{
+  "name": "react-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18.18.0",
+    "pnpm": ">=8.15.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --project tsconfig.app.json && vite build",
+    "preview": "vite preview",
+    "lint": "echo \"TODO: configure ESLint\"",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.51.1",
+    "@tanstack/react-query-devtools": "^5.51.1",
+    "nanoid": "^5.0.7",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "zustand": "^4.5.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react-swc": "^3.7.1",
+    "msw": "^2.4.9",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2",
+    "vitest": "^2.0.5"
+  }
+}

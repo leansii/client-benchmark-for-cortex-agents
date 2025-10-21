@@ -1,0 +1,40 @@
+.container {
+  display: grid;
+  gap: clamp(16px, 2vw, 28px);
+  flex: 1;
+}
+
+.controls,
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.main {
+  display: grid;
+  gap: clamp(16px, 2vw, 28px);
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+  align-items: start;
+}
+
+.timeline {
+  min-height: 360px;
+}
+
+.side {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (max-width: 960px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+
+  .side {
+    order: 1;
+  }
+}

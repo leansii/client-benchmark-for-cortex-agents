@@ -57,6 +57,7 @@ Checklist:
 - Pinia for state, TanStack Query Vue for data fetching.
 - CSS Modules via Vite + PostCSS align with React build.
 - EventSource wrapper exposed as composable for stream control.
+- Single-view app shell; routing to be added only if multi-screen flows required.
 
 ### 8. Open Questions
 - Preferred charting abstraction (ECharts vs Vega-Lite) + tree shaking concerns?

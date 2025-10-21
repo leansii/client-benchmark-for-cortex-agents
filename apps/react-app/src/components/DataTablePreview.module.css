@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.empty {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.header,
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.header {
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.row {
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(48, 51, 71, 0.4);
+}

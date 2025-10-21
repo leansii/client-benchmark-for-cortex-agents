@@ -57,6 +57,7 @@ Checklist:
 - TanStack Query for proxy interactions + retries.
 - CSS strategy: CSS Modules with PostCSS preset env + shared tokens.
 - SSE client built on native EventSource with abort controller.
+- Single-view app shell; introduce routing later only if multi-screen flows emerge.
 
 ### 8. Open Questions
 - Preferred chart lib wrapper (Recharts vs shared Vega-Lite binding)?

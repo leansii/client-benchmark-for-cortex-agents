@@ -1,0 +1,27 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: rgba(98, 114, 164, 0.2);
+}
+
+.running {
+  background: rgba(189, 147, 249, 0.25);
+}
+
+.completed {
+  background: rgba(80, 250, 123, 0.2);
+}
+
+.failed {
+  background: rgba(255, 85, 85, 0.2);
+}
+
+.status {
+  font-weight: 600;
+}

@@ -1,0 +1,28 @@
+.card {
+  border-radius: var(--radius-md);
+  background: rgba(48, 51, 71, 0.6);
+  border: 1px solid rgba(98, 114, 164, 0.3);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.meta {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
